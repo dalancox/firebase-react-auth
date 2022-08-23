@@ -1,4 +1,5 @@
 import firebase from 'firebase/compat/app'
+import 'firebase/compat/firestore'
 import 'firebase/compat/auth'
 
 const app = firebase.initializeApp({
@@ -11,5 +12,9 @@ const app = firebase.initializeApp({
     measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
 })
 
+const db = app.firestore()
+export const database = {
+    users: db.collection("users")
+}
 export const auth = app.auth()
 export default app
