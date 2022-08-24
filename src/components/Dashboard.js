@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Card, Button, Alert } from 'react-bootstrap'
 import { useAuth } from "../contexts/AuthContext"
 import { Link, useNavigate } from 'react-router-dom'
@@ -7,6 +7,8 @@ import { database } from '../firebase'
 
 function Dashboard() {
     const [error, setError] = useState('')
+    const [ans, setAns] = useState()
+    const [loading, setLoading] = useState(true)
     const { currentUser, logout } = useAuth()
     let navigate = useNavigate()
 
@@ -21,16 +23,25 @@ function Dashboard() {
         }
     }
 
+    function getData() {
         database.stories.doc('JwHJl035SHW0pOjkvxzT').get().then(doc => {
-        const formattedDoc = {
-            id: doc.id,
-            ...doc.data(),
-        }
-        console.log(formattedDoc)
-        }).catch(() =>{
-            console.log('error')
-        })
-        
+            const formattedDoc = {
+                id: doc.id,
+                ...doc.data(),
+            }
+            setAns(formattedDoc)
+            setLoading(false)
+            }).catch(() =>{
+                console.log('error')
+            })
+    }
+
+    useEffect(() => {
+        getData()
+        console.log(ans)
+    }, [])
+
+
     return (
         <>
             <Card>
@@ -52,12 +63,8 @@ function Dashboard() {
                     <Link to="/add-story" className="btn btn-primary w-100 mt-3">Add Story!</Link>
                 </Card.Body>
             </Card>
-            <div>
-                {
-                
-                }
-            </div>
-
+            <h1>{ans.storyTitle}</h1>
+            <p>{ans.storyBody}</p>
         </>
     )
 }
