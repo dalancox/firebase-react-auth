@@ -63,8 +63,8 @@ function Dashboard() {
                     <Link to="/add-story" className="btn btn-primary w-100 mt-3">Add Story!</Link>
                 </Card.Body>
             </Card>
-            <h1>{ans.storyTitle}</h1>
-            <p>{ans.storyBody}</p>
+            <h1>{loading === false && ans.storyTitle}</h1>
+            <p>{loading === false && ans.storyBody}</p>
         </>
     )
 }
