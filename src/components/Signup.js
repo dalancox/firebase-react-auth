@@ -7,6 +7,8 @@ function Signup() {
     const emailRef = useRef()
     const passwordRef = useRef()
     const passwordConfirmRef = useRef()
+    const lastNameRef = useRef()
+    const firstNameRef = useRef()
     const { signup } = useAuth()
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
@@ -22,7 +24,7 @@ function Signup() {
         try {
             setError('')
             setLoading(true)
-            await signup(emailRef.current.value, passwordRef.current.value)
+            await signup(emailRef.current.value, passwordRef.current.value, firstNameRef.current.value, lastNameRef.current.value)
             navigate('/login')
         } catch {
             setError('Failed to create an account')
@@ -38,6 +40,14 @@ function Signup() {
                 <h2 className='text-center mb-4'>Sign up</h2>
                 {error && <Alert variant="danger">{error}</Alert>}
                 <Form onSubmit={handleSubmit}>
+                    <Form.Group id="first-name">
+                        <Form.Label>First Name</Form.Label>
+                        <Form.Control type="name" ref={firstNameRef} required />
+                    </Form.Group>
+                    <Form.Group id="last-name">
+                        <Form.Label>Last Name</Form.Label>
+                        <Form.Control type="name" ref={lastNameRef} required />
+                    </Form.Group>
                     <Form.Group id="email">
                         <Form.Label>Email</Form.Label>
                         <Form.Control type="email" ref={emailRef} required />

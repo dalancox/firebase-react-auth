@@ -12,9 +12,13 @@ const app = firebase.initializeApp({
     measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
 })
 
-const db = app.firestore()
+
+
+export const db = app.firestore()
 export const database = {
-    users: db.collection("users")
+    users: db.collection("users"),
+    stories: db.collection("stories"),
 }
+
 export const auth = app.auth()
 export default app
