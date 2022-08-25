@@ -4,11 +4,9 @@ import { useAuth } from "../contexts/AuthContext"
 import { Link, useNavigate } from 'react-router-dom'
 import { database } from '../firebase'
 
-
 function Dashboard() {
     const [error, setError] = useState('')
-    const [ans, setAns] = useState()
-    const [loading, setLoading] = useState(true)
+    const [stories, setStories] = useState([])
     const { currentUser, logout } = useAuth()
     let navigate = useNavigate()
 
@@ -23,24 +21,14 @@ function Dashboard() {
         }
     }
 
-    function getData() {
-        database.stories.doc('JwHJl035SHW0pOjkvxzT').get().then(doc => {
-            const formattedDoc = {
-                id: doc.id,
-                ...doc.data(),
-            }
-            setAns(formattedDoc)
-            setLoading(false)
-            }).catch(() =>{
-                console.log('error')
-            })
-    }
-
     useEffect(() => {
-        getData()
-        console.log(ans)
-    }, [])
+        const getStories = async () => {
+            const data = await database.stories.where('userID', '==', currentUser.uid).get()
+            setStories(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
+        }
 
+        getStories()
+    }, [])
 
     return (
         <>
@@ -63,8 +51,16 @@ function Dashboard() {
                     <Link to="/add-story" className="btn btn-primary w-100 mt-3">Add Story!</Link>
                 </Card.Body>
             </Card>
-            <h1>{loading === false && ans.storyTitle}</h1>
-            <p>{loading === false && ans.storyBody}</p>
+            {
+                stories.map((stories) => {
+                    return (
+                        <div key={stories.id}>
+                            <h1>{stories.storyTitle}</h1>
+                            <p>{stories.storyBody}</p>
+                        </div>
+                    )
+                })
+            }
         </>
     )
 }
