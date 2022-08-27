@@ -20,11 +20,5 @@ export const database = {
     stories: db.collection("stories"),
 }
 
-// db.collection('stories').where('userID', '==', app.auth().currentUser.uid).get().then((snapshot) => {
-//     snapshot.docs.forEach((doc) => {
-//         console.log(doc.data())
-//     })
-// })
-
 export const auth = app.auth()
 export default app

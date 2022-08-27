@@ -41,8 +41,9 @@ function UpdateProfile() {
     }
 
     return (
-    <div>
-        <Card>
+        <>
+    <div className='d-flex justify-content-center' style={{height: '100vh', alignItems: 'center'}}>
+        <Card style={{width: '500px'}}>
             <Card.Body>
                 <h2 className='text-center mb-4'>Update Profile</h2>
                 {error && <Alert variant="danger">{error}</Alert>}
@@ -63,10 +64,12 @@ function UpdateProfile() {
                 </Form>
             </Card.Body>
         </Card>
-        <div className='w-100 text-center mt-2'>
+
+    </div>
+    <div className='text-center mt-2'>
             <Link to="/">Cancel</Link>
         </div>
-    </div>
+    </>
   );
 }
 
