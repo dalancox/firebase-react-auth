@@ -41,7 +41,7 @@ function Dashboard() {
 
     return (
         <>
-        <div style={{display: 'flex', width: '100%', height: '100vh'}}>
+        <div style={{display: 'flex', justifyContent: 'space-between', height: '100vh'}}>
 
         <div style={{width: '75%'}}>
             {
@@ -60,7 +60,7 @@ function Dashboard() {
             }
         </div>
 
-        <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'space-between', width: '25%', borderLeft: '1px solid #ddd'}}>
+        <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'space-between', width: '300px', borderLeft: '1px solid #ddd'}}>
             <div>
                 <Profile />
                 <WriteStory story={stories.length} />
