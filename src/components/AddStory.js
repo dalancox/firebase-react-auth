@@ -33,8 +33,9 @@ function AddStory() {
     }
 
     return(
-        <>
-            <Card>
+        <> 
+        <div style={{display: 'flex', justifyContent: 'center', height: '100vh', alignItems: 'center'}}>
+            <Card style={{width: '75%'}}>
                 <Card.Body>
                     <h2 className='text-center mb-4'>Write your story</h2>
                     {error && <Alert variant="danger">{error}</Alert>}
@@ -45,12 +46,13 @@ function AddStory() {
                     </Form.Group>
                     <Form.Group id="story-body">
                         <Form.Label>Your Story:</Form.Label>
-                        <Form.Control type="text" ref={storyBody} required />
+                        <Form.Control style={{height: '200px'}} as='textarea' type="text" ref={storyBody} required />
                     </Form.Group>
-                    <Button className="w-100" type='submit'>Submit Story!</Button>                
+                    <Button className="w-100 mt-3" type='submit'>Submit Story!</Button>                
                     </Form>
                 </Card.Body>
             </Card>
+        </div>
         </>
     )
 }

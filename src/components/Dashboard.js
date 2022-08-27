@@ -9,23 +9,28 @@ import WriteStory from "./WriteStory";
 
 function Dashboard() {
     const [error, setError] = useState('')
+    const [success, setSuccess] = useState('')
     const [stories, setStories] = useState([])
     const { logout, currentUser } = useAuth()
     let navigate = useNavigate()
-
-    
-
-    const handleDelete = (docId) => {
-        database.stories.doc(docId).delete()
-    }
 
     async function handleLogout() {
         setError('')
         try {
             await logout()
-            navigate('/login')
         } catch {
             setError('Failed to log out')
+        }
+    }
+
+    const handleDelete = (docId) => {
+        setSuccess('')
+        try {
+            database.stories.doc(docId).delete()
+            setSuccess('succesfully deleted story.')
+            navigate('/')
+        } catch {
+            setSuccess('Something went wrong')
         }
     }
 
@@ -41,32 +46,31 @@ function Dashboard() {
 
     return (
         <>
-        <div style={{display: 'flex', justifyContent: 'space-between', height: '100vh'}}>
+        <div style={{display: 'flex', justifyContent: 'space-between'}}>
 
-        <div style={{width: '75%'}}>
+        <div style={{width: '75%', margin: '1rem'}}>
+        {success && <Alert variant="success">{success}</Alert>}
             {
                 stories.map((stories) => {
                     return (
-                    <>
-                        <div key={stories.id}>
-                            <h1>{stories.storyTitle}</h1>
-                            <p>{stories.storyBody}</p>
-                            <Button onClick={() => handleDelete(stories.id)}>Delete</Button>
-                            <Button>Update Story</Button>
-                        </div>
-                    </>
+                    <div key={stories.id} style={{padding: '1rem', borderBottom: '1px solid #ddd'}}>
+                        <h1>{stories.storyTitle}</h1>
+                        <p>{stories.storyBody}</p>
+                        <Button onClick={() => handleDelete(stories.id)}>Delete</Button>
+                        <Button>Update Story</Button>
+                    </div>
                     )
                 })
             }
         </div>
 
-        <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'space-between', width: '300px', borderLeft: '1px solid #ddd'}}>
+        <div style={{position: 'sticky', top: '0', right: '0', width: '300px', height: '100vh', borderLeft: '1px solid #ddd'}}>
             <div>
                 <Profile />
                 <WriteStory story={stories.length} />
             </div>
 
-            <div className='w-100 text-center mb-5'>
+            <div className='w-100 text-center mb-5' style={{position: 'absolute', bottom: '0'}}>
                 {error && <Alert variant="danger">{error}</Alert>}
                 <Button variant="link" onClick={handleLogout}>Log Out</Button>
             </div>
