@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { Button, Alert } from 'react-bootstrap'
+import Spinner from 'react-bootstrap/Spinner';
+import Modal from 'react-bootstrap/Modal';
 import { useAuth } from "../contexts/AuthContext"
 import { database } from '../firebase'
-import { useNavigate } from 'react-router-dom'
 
 import Profile from "./Profile";
 import WriteStory from "./WriteStory";
 
 function Dashboard() {
     const [error, setError] = useState('')
-    const [success, setSuccess] = useState('')
+    const [success, setSuccess] = useState(false)
     const [stories, setStories] = useState([])
+    const [loading, setLoading] = useState(false)
     const { logout, currentUser } = useAuth()
-    let navigate = useNavigate()
 
     async function handleLogout() {
         setError('')
@@ -24,33 +25,43 @@ function Dashboard() {
     }
 
     const handleDelete = async (docId) => {
-        setSuccess('')
+
+        setSuccess(true)
         try {
             database.stories.doc(docId).delete()
             setSuccess('succesfully deleted story.')
             const data = await database.stories.where('userID', '==', currentUser.uid).get()
             setStories(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
         } catch {
-            setSuccess('Something went wrong')
+            console.log('error')
         }
     }
 
+    const handleClose = () => {setSuccess(false)}
+
 
     useEffect(() => {
+        setLoading(true)
         const getStories = async () => {
             const data = await database.stories.where('userID', '==', currentUser.uid).get()
             setStories(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
+            setLoading(false)
         }
 
         getStories()
+        // eslint-disable-next-line
     }, [])
 
     return (
         <>
         <div style={{display: 'flex', justifyContent: 'space-between'}}>
-
         <div style={{width: '75%', margin: '1rem'}}>
-        {success && <Alert variant="success">{success}</Alert>}
+        <Modal show={success} onHide={handleClose}>
+            <Modal.Header closeButton>
+            <Modal.Title>Succesfully deleted story.</Modal.Title>
+            </Modal.Header>
+        </Modal>
+        <Spinner className={loading ? "d-block":"d-none"} animation="grow" />
             {
                 stories.map((stories) => {
                     return (
