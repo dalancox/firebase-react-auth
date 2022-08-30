@@ -13,6 +13,7 @@ function Dashboard() {
     const [success, setSuccess] = useState(false)
     const [stories, setStories] = useState([])
     const [loading, setLoading] = useState(false)
+    const [userData, setUserData] = useState([])
     const { logout, currentUser } = useAuth()
 
     async function handleLogout() {
@@ -48,7 +49,18 @@ function Dashboard() {
             setLoading(false)
         }
 
+        const getProfileData = async () => {
+            const data = await database.users.doc(currentUser.uid).get()
+            setUserData(data.data()) 
+        }
+        
+        getProfileData() 
         getStories()
+
+        return () => {
+            getStories()
+            getProfileData()
+        }
         // eslint-disable-next-line
     }, [])
 
@@ -82,7 +94,7 @@ function Dashboard() {
 
         <div style={{position: 'sticky', top: '0', right: '0', width: '300px', height: '100vh', borderLeft: '1px solid #ddd'}}>
             <div>
-                <Profile />
+                <Profile profileData={userData} />
                 <WriteStory story={stories.length} />
             </div>
 
