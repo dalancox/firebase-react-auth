@@ -13,10 +13,11 @@ export function AuthProvider({ children }) {
 
     function signup(email,password, firstNameRef, lastNameRef) {
         auth.createUserWithEmailAndPassword(email, password).then(cred => {
-            database.users.add({
-                userID: cred.user.uid,
+            database.users.doc(cred.user.uid).set({
                 firstName: firstNameRef,
-                lastName: lastNameRef
+                lastName: lastNameRef,
+                email: email,
+                userID: cred.user.uid
             })
         })
     }
