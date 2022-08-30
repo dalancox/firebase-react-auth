@@ -23,12 +23,13 @@ function Dashboard() {
         }
     }
 
-    const handleDelete = (docId) => {
+    const handleDelete = async (docId) => {
         setSuccess('')
         try {
             database.stories.doc(docId).delete()
             setSuccess('succesfully deleted story.')
-            navigate('/')
+            const data = await database.stories.where('userID', '==', currentUser.uid).get()
+            setStories(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
         } catch {
             setSuccess('Something went wrong')
         }
