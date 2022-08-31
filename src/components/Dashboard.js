@@ -8,6 +8,8 @@ import { database } from '../firebase'
 import Profile from "./Profile";
 import WriteStory from "./WriteStory";
 
+import styles from "./styles/Dashboard.module.css"
+
 function Dashboard() {
     const [error, setError] = useState('')
     const [success, setSuccess] = useState(false)
@@ -26,11 +28,9 @@ function Dashboard() {
     }
 
     const handleDelete = async (docId) => {
-
         setSuccess(true)
         try {
             database.stories.doc(docId).delete()
-            setSuccess('succesfully deleted story.')
             const data = await database.stories.where('userID', '==', currentUser.uid).get()
             setStories(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
         } catch {
@@ -53,7 +53,7 @@ function Dashboard() {
             const data = await database.users.doc(currentUser.uid).get()
             setUserData(data.data()) 
         }
-        
+
         getProfileData() 
         getStories()
 
@@ -66,43 +66,43 @@ function Dashboard() {
 
     return (
         <>
-        <div style={{display: 'flex', justifyContent: 'space-between'}}>
-        <div style={{width: '75%', margin: '1rem'}}>
-        <Modal show={success} onHide={handleClose}>
-            <Modal.Header closeButton>
-            <Modal.Title>Succesfully deleted story.</Modal.Title>
-            </Modal.Header>
-        </Modal>
-        <Spinner className={loading ? "d-block":"d-none"} animation="grow" />
-            {
-                stories.length === 0 && 
-                <h2>You have no stories...</h2>
-            }
-            {
-                stories.map((stories) => {
-                    return (
-                    <div key={stories.id} style={{padding: '1rem', borderBottom: '1px solid #ddd'}}>
-                        <h1>{stories.storyTitle}</h1>
-                        <p>{stories.storyBody}</p>
-                        <Button onClick={() => handleDelete(stories.id)}>Delete</Button>
-                        <Button>Update Story</Button>
-                    </div>
-                    )
-                })
-            }
-        </div>
-
-        <div style={{position: 'sticky', top: '0', right: '0', width: '300px', height: '100vh', borderLeft: '1px solid #ddd'}}>
-            <div>
-                <Profile profileData={userData} />
-                <WriteStory story={stories.length} />
+        <div className={styles.wrapper}>
+            <div className={styles.sidebar}>
+            <Modal show={success} onHide={handleClose}>
+                <Modal.Header closeButton>
+                <Modal.Title>Succesfully deleted story.</Modal.Title>
+                </Modal.Header>
+            </Modal>
+            <Spinner className={loading ? "d-block":"d-none"} animation="grow" />
+                {
+                    stories.length === 0 && 
+                    <h2>You have no stories...</h2>
+                }
+                {
+                    stories.map((stories) => {
+                        return (
+                        <div key={stories.id} style={{padding: '1rem', borderBottom: '1px solid #ddd'}}>
+                            <h1>{stories.storyTitle}</h1>
+                            <p>{stories.storyBody}</p>
+                            <Button onClick={() => handleDelete(stories.id)}>Delete</Button>
+                            <Button>Update Story</Button>
+                        </div>
+                        )
+                    })
+                }
             </div>
 
-            <div className='w-100 text-center mb-5' style={{position: 'absolute', bottom: '0'}}>
-                {error && <Alert variant="danger">{error}</Alert>}
-                <Button variant="link" onClick={handleLogout}>Log Out</Button>
+            <div className={styles.stories}>
+                <div>
+                    <Profile profileData={userData} />
+                    <WriteStory story={stories.length} />
+                </div>
+
+                <div className='w-100 text-center mb-5' style={{position: 'absolute', bottom: '0'}}>
+                    {error && <Alert variant="danger">{error}</Alert>}
+                    <Button variant="link" onClick={handleLogout}>Log Out</Button>
+                </div>
             </div>
-        </div>
         </div>      
         </>
     )
