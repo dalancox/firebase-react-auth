@@ -3,6 +3,7 @@ import Dashboard from './Dashboard'
 import Login from './authentication/Login'
 import ForgotPassword from './authentication/ForgotPassword';
 import UpdateProfile from './authentication/UpdateProfile';
+import Explore from './Explore';
 import AddStory from './AddStory';
 import { AuthProvider } from '../contexts/AuthContext';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
@@ -32,6 +33,7 @@ function App() {
                   </PrivateRoute>
                 }
                 ></Route>
+                <Route path="/explore" element={<Explore />} />
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/forgot-password" element={<ForgotPassword />} />

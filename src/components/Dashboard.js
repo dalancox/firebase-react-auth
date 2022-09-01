@@ -4,6 +4,7 @@ import Spinner from 'react-bootstrap/Spinner';
 import Modal from 'react-bootstrap/Modal';
 import { useAuth } from "../contexts/AuthContext"
 import { database } from '../firebase'
+import { Link } from 'react-router-dom'
 
 import Profile from "./Profile";
 import WriteStory from "./WriteStory";
@@ -96,6 +97,11 @@ function Dashboard() {
                 <div>
                     <Profile profileData={userData} />
                     <WriteStory story={stories.length} />
+                    <Link to="/explore" className="btn btn-primary mx-3">Explore</Link>
+                </div>
+
+                <div>
+                    
                 </div>
 
                 <div className='w-100 text-center mb-5' style={{position: 'absolute', bottom: '0'}}>

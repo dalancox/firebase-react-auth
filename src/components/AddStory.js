@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useRef, useState } from "react";
 import { Card, Button, Alert, Form } from 'react-bootstrap'
 import { database } from "../firebase";
@@ -9,7 +9,9 @@ function AddStory() {
 
     const storyTitle = useRef()
     const storyBody = useRef()
+    const status = useRef() 
     const { currentUser } = useAuth()
+    const [userData, setUserData] = useState([])
 
     const [error, setError] = useState('')
 
@@ -23,7 +25,9 @@ function AddStory() {
             await database.stories.add({
                 userID: currentUser.uid,
                 storyTitle: storyTitle.current.value,
-                storyBody: storyBody.current.value
+                storyBody: storyBody.current.value,
+                status: status.current.value,
+                username: userData.firstName
             })
             navigate('/')
         }catch{
@@ -31,6 +35,16 @@ function AddStory() {
         }
         
     }
+
+    useEffect(() => {
+        const getUserName = async () => {
+            const data = await database.users.doc(currentUser.uid).get()
+            setUserData(data.data()) 
+        }
+
+        getUserName()
+        // eslint-disable-next-line
+    }, [])
 
     return(
         <> 
@@ -47,6 +61,13 @@ function AddStory() {
                     <Form.Group id="story-body">
                         <Form.Label>Your Story:</Form.Label>
                         <Form.Control style={{height: '200px'}} as='textarea' type="text" ref={storyBody} required />
+                    </Form.Group>
+                    <Form.Group>
+                    <Form.Label>Status</Form.Label>
+                        <Form.Select ref={status} required>
+                            <option>Public</option>
+                            <option>Private</option>
+                        </Form.Select>
                     </Form.Group>
                     <Button className="w-100 mt-3" type='submit'>Submit Story!</Button>                
                     </Form>
