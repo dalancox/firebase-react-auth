@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import { useAuth } from "../contexts/AuthContext"
 import { Link } from 'react-router-dom'
 import { Card, Alert, Button } from "react-bootstrap";
@@ -6,8 +6,9 @@ import { Card, Alert, Button } from "react-bootstrap";
 import styles from "./styles/SideBar.module.css"
 
 
-function SideBar({ story, profileData }) {
-    const { logout } = useAuth()
+function SideBar({ story }) {
+    const { logout, getProfileData } = useAuth()
+    const [userData, setUserData] = useState([])
     const [error, setError] = useState('')
 
     async function handleLogout() {
@@ -19,12 +20,28 @@ function SideBar({ story, profileData }) {
         }
     }
 
+    const handleProfileData = async () => {
+        
+        try {
+            const data = await getProfileData()
+            setUserData(data.data()) 
+        } catch {
+            console.log('error')
+        }
+
+    }
+
+    useEffect(() => {
+        handleProfileData()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
     return (
         <div className={styles.sidebar}>
             <Card style={{border: 'none'}}>
                 <Card.Body>
                     <h2 className='text-center mb-4'>Profile</h2>
-                    <strong>Hello, {profileData.firstName} {profileData.lastName}</strong>
+                    <strong>Hello, {userData.firstName} {userData.lastName}</strong>
                     <Link to="/update-profile" className="btn btn-primary w-100 mt-3">Update Profile</Link>
                 </Card.Body>
             </Card>

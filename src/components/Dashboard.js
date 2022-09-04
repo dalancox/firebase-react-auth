@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useAuth } from "../contexts/AuthContext"
-import { database } from '../firebase'
 
 import Spinner from 'react-bootstrap/Spinner';
 import Modal from 'react-bootstrap/Modal';
@@ -11,48 +10,46 @@ import Stories from "./Stories";
 
 import styles from "./styles/Dashboard.module.css"
 
+
 function Dashboard() {
     const [success, setSuccess] = useState(false)
     const [stories, setStories] = useState([])
     const [loading, setLoading] = useState(false)
-    const [userData, setUserData] = useState([])
-    const { currentUser } = useAuth()
+    const { getUserStories, deleteUserStories } = useAuth()
+
+    const handleClose = () => {setSuccess(false)}
+
+    const handleStories = async () => {
+        setLoading(true)
+        try {
+            const data = await getUserStories()
+            setStories(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
+            setLoading(false)
+        } catch (error) {
+            console.log("error")
+        }
+    }
 
     const handleDelete = async (docId) => {
         setSuccess(true)
         try {
-            database.stories.doc(docId).delete()
-            const data = await database.stories.where('userID', '==', currentUser.uid).get()
-            setStories(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
+            await deleteUserStories(docId)
+            handleStories()
         } catch {
             console.log('error')
         }
     }
 
-    const handleClose = () => {setSuccess(false)}
 
 
     useEffect(() => {
-        setLoading(true)
-        const getStories = async () => {
-            const data = await database.stories.where('userID', '==', currentUser.uid).get()
-            setStories(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
-            setLoading(false)
-        }
 
-        const getProfileData = async () => {
-            const data = await database.users.doc(currentUser.uid).get()
-            setUserData(data.data()) 
-        }
-
-        getProfileData() 
-        getStories()
+        handleStories()
 
         return () => {
-            getStories()
-            getProfileData()
+            handleStories()
         }
-        // eslint-disable-next-line
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return (
@@ -72,15 +69,15 @@ function Dashboard() {
                 {
                     stories.map((stories) => {
                         return (
-                            <div style={{padding: '1rem', borderBottom: '1px solid #ddd'}}>                     
-                                <Stories key={stories.id} stories={stories} />
+                            <div key={stories.id} style={{padding: '1rem', borderBottom: '1px solid #ddd'}}>                     
+                                <Stories stories={stories} />
                                 <Button onClick={() => handleDelete(stories.id)}>Delete</Button>
                             </div>
                         )
                     })
                 }
             </div>
-            <SideBar profileData={userData} story={stories.length} />
+            <SideBar story={stories.length} />
         </div>      
         </>
     )

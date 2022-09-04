@@ -42,6 +42,18 @@ export function AuthProvider({ children }) {
         return currentUser.updatePassword(password)
     }
 
+    function getUserStories() {
+        return database.stories.where('userID', '==', currentUser.uid).get()    
+    }
+
+    function deleteUserStories(docId) {
+        return database.stories.doc(docId).delete()
+    }
+
+    function getProfileData() {
+        return database.users.doc(currentUser.uid).get()
+    }
+
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged(user => {
             setCurrentUser(user)
@@ -58,7 +70,10 @@ export function AuthProvider({ children }) {
         signup,
         resetPassword,
         updateEmail,
-        updatePassword
+        updatePassword,
+        getUserStories,
+        deleteUserStories,
+        getProfileData
     }
 
     return (
