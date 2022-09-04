@@ -1,32 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { Button, Alert } from 'react-bootstrap'
+import { Button } from 'react-bootstrap'
 import Spinner from 'react-bootstrap/Spinner';
 import Modal from 'react-bootstrap/Modal';
 import { useAuth } from "../contexts/AuthContext"
 import { database } from '../firebase'
-import { Link } from 'react-router-dom'
 
-import Profile from "./Profile";
-import WriteStory from "./WriteStory";
+import SideBar from "./SideBar";
 
 import styles from "./styles/Dashboard.module.css"
 
 function Dashboard() {
-    const [error, setError] = useState('')
     const [success, setSuccess] = useState(false)
     const [stories, setStories] = useState([])
     const [loading, setLoading] = useState(false)
     const [userData, setUserData] = useState([])
-    const { logout, currentUser } = useAuth()
-
-    async function handleLogout() {
-        setError('')
-        try {
-            await logout()
-        } catch {
-            setError('Failed to log out')
-        }
-    }
+    const { currentUser } = useAuth()
 
     const handleDelete = async (docId) => {
         setSuccess(true)
@@ -68,7 +56,7 @@ function Dashboard() {
     return (
         <>
         <div className={styles.wrapper}>
-            <div className={styles.sidebar}>
+            <div className={styles.stories}>
             <Modal show={success} onHide={handleClose}>
                 <Modal.Header closeButton>
                 <Modal.Title>Succesfully deleted story.</Modal.Title>
@@ -93,22 +81,9 @@ function Dashboard() {
                 }
             </div>
 
-            <div className={styles.stories}>
-                <div>
-                    <Profile profileData={userData} />
-                    <WriteStory story={stories.length} />
-                    <Link to="/explore" className="btn btn-primary mx-3">Explore</Link>
-                </div>
 
-                <div>
-                    
-                </div>
-
-                <div className='w-100 text-center mb-5' style={{position: 'absolute', bottom: '0'}}>
-                    {error && <Alert variant="danger">{error}</Alert>}
-                    <Button variant="link" onClick={handleLogout}>Log Out</Button>
-                </div>
-            </div>
+            <SideBar profileData={userData} story={stories.length} />
+            
         </div>      
         </>
     )

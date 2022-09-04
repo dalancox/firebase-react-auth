@@ -1,0 +1,47 @@
+import React, {useState} from "react";
+import { useAuth } from "../contexts/AuthContext"
+import { Link } from 'react-router-dom'
+import { Card, Alert, Button } from "react-bootstrap";
+
+import styles from "./styles/SideBar.module.css"
+
+
+function SideBar({ story, profileData }) {
+    const { logout } = useAuth()
+    const [error, setError] = useState('')
+
+    async function handleLogout() {
+        setError('')
+        try {
+            await logout()
+        } catch {
+            setError('Failed to log out')
+        }
+    }
+
+    return (
+        <div className={styles.sidebar}>
+            <Card style={{border: 'none'}}>
+                <Card.Body>
+                    <h2 className='text-center mb-4'>Profile</h2>
+                    <strong>Hello, {profileData.firstName} {profileData.lastName}</strong>
+                    <Link to="/update-profile" className="btn btn-primary w-100 mt-3">Update Profile</Link>
+                </Card.Body>
+            </Card>
+            <Card style={{border: 'none'}}>
+                <Card.Body>
+                    <h2 className='text-center mb-4'>Write your story</h2>       
+                    <strong>Current Stories:</strong> {story}
+                    <Link to="/add-story" className="btn btn-primary w-100 mt-3">Add Story!</Link>
+                </Card.Body>
+            </Card>
+
+            <div className='w-100 text-center mb-5' style={{position: 'absolute', bottom: '0'}}>
+                {error && <Alert variant="danger">{error}</Alert>}
+                <Button variant="link" onClick={handleLogout}>Log Out</Button>
+            </div>
+        </div>
+    )
+}
+
+export default SideBar
