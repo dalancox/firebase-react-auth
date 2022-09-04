@@ -11,7 +11,7 @@ import PrivateRoute from './authentication/PrivateRoute'
 
 function App() {
   return (
-        <div>
+        <>
           <Router>
             <AuthProvider>
               <Routes>
@@ -33,14 +33,19 @@ function App() {
                   </PrivateRoute>
                 }
                 ></Route>
-                <Route path="/explore" element={<Explore />} />
+                <Route path="/explore" element={
+                  <PrivateRoute>
+                    <Explore />
+                  </PrivateRoute>
+                }
+                ></Route>
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/forgot-password" element={<ForgotPassword />} />
               </Routes>
             </AuthProvider>
           </Router>
-        </div>
+        </>
   )
 }
 

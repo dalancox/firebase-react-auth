@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Button } from 'react-bootstrap'
-import Spinner from 'react-bootstrap/Spinner';
-import Modal from 'react-bootstrap/Modal';
 import { useAuth } from "../contexts/AuthContext"
 import { database } from '../firebase'
 
+import Spinner from 'react-bootstrap/Spinner';
+import Modal from 'react-bootstrap/Modal';
+import { Button } from "react-bootstrap";
+
 import SideBar from "./SideBar";
+import Stories from "./Stories";
 
 import styles from "./styles/Dashboard.module.css"
 
@@ -70,20 +72,15 @@ function Dashboard() {
                 {
                     stories.map((stories) => {
                         return (
-                        <div key={stories.id} style={{padding: '1rem', borderBottom: '1px solid #ddd'}}>
-                            <h1>{stories.storyTitle}</h1>
-                            <p>{stories.storyBody}</p>
-                            <Button onClick={() => handleDelete(stories.id)}>Delete</Button>
-                            <Button>Update Story</Button>
-                        </div>
+                            <div style={{padding: '1rem', borderBottom: '1px solid #ddd'}}>                     
+                                <Stories key={stories.id} stories={stories} />
+                                <Button onClick={() => handleDelete(stories.id)}>Delete</Button>
+                            </div>
                         )
                     })
                 }
             </div>
-
-
             <SideBar profileData={userData} story={stories.length} />
-            
         </div>      
         </>
     )
