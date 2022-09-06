@@ -4,7 +4,8 @@ function Stories({ stories }) {
 
     return(
         <>
-            <div key={stories.id}>
+            <div>
+                <strong>{stories.username} wrote,</strong>
                 <h1>{stories.storyTitle}</h1>
                 <p>{stories.storyBody}</p>
             </div>
