@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState, useCallback} from "react";
 import { useAuth } from "../contexts/AuthContext"
 import { Link } from 'react-router-dom'
 import { Card, Alert, Button } from "react-bootstrap";
@@ -20,21 +20,19 @@ function SideBar({ story }) {
         }
     }
 
-    const handleProfileData = async () => {
-        
+    const handleProfileData = useCallback(async () => {
         try {
             const data = await getProfileData()
             setUserData(data.data()) 
         } catch {
             console.log('error')
         }
-
-    }
+    }, [getProfileData])
 
     useEffect(() => {
         handleProfileData()
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+        
+    }, [handleProfileData])
 
     return (
         <div className={styles.sidebar}>

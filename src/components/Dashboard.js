@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useAuth } from "../contexts/AuthContext"
 
 import Spinner from 'react-bootstrap/Spinner';
@@ -19,7 +19,7 @@ function Dashboard() {
 
     const handleClose = () => {setSuccess(false)}
 
-    const handleStories = async () => {
+    const handleStories = useCallback(async () => {
         setLoading(true)
         try {
             const data = await getUserStories()
@@ -28,7 +28,7 @@ function Dashboard() {
         } catch (error) {
             console.log("error")
         }
-    }
+    }, [getUserStories])
 
     const handleDelete = async (docId) => {
         setSuccess(true)
@@ -40,17 +40,9 @@ function Dashboard() {
         }
     }
 
-
-
     useEffect(() => {
-
         handleStories()
-
-        return () => {
-            handleStories()
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    }, [handleStories])
 
     return (
         <>
