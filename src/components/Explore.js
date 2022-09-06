@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { database } from "../firebase";
 
+import Stories from "./Stories";
 
 function Explore() {
     const [publicStories, setPublicStories] = useState([]);
-
     useEffect(() => {
         const getPublicStories = async () => {
             const data = await database.stories.where('status', '==', 'Public').get()
@@ -20,15 +20,13 @@ function Explore() {
             publicStories.map((stories) => {
                 return (
                     <div key={stories.id} style={{padding: '1rem', borderBottom: '1px solid #ddd'}}>
-                        <p>{stories.username}</p>
-                        <h1>{stories.storyTitle}</h1>
-                        <p>{stories.storyBody}</p>
+                        <Stories stories={stories} />
                     </div>
                 )
-                })
-            }
+            })
+            }   
         </>
-     )
+    )
 }
 
 export default Explore
