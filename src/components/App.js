@@ -5,6 +5,8 @@ import ForgotPassword from './authentication/ForgotPassword';
 import UpdateProfile from './authentication/UpdateProfile';
 import Explore from './Explore';
 import AddStory from './AddStory';
+import UserStories from './UserStories';
+import PageNotFound from './PageNotFound';
 import { AuthProvider } from '../contexts/AuthContext';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import PrivateRoute from './authentication/PrivateRoute'
@@ -39,9 +41,16 @@ function App() {
                   </PrivateRoute>
                 }
                 ></Route>
+                <Route path="/u/:userId" element={
+                  <PrivateRoute>
+                    <UserStories />
+                  </PrivateRoute>
+                }
+                ></Route>
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/forgot-password" element={<ForgotPassword />} />
+                <Route path="*" element={<PageNotFound />} />
               </Routes>
             </AuthProvider>
           </Router>

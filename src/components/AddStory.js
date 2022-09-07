@@ -3,7 +3,8 @@ import { useRef, useState } from "react";
 import { Card, Button, Alert, Form } from 'react-bootstrap'
 import { database } from "../firebase";
 import { useAuth } from '../contexts/AuthContext';
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
+import firebase from 'firebase/compat/app'
 
 function AddStory() {
 
@@ -27,7 +28,8 @@ function AddStory() {
                 storyTitle: storyTitle.current.value,
                 storyBody: storyBody.current.value,
                 status: status.current.value,
-                username: userData.firstName
+                username: userData.firstName,
+                createdAt: firebase.firestore.FieldValue.serverTimestamp()
             })
             navigate('/')
         }catch{
