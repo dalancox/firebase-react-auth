@@ -1,27 +1,16 @@
-import React, {useState, useEffect, useCallback} from "react";
+import React, {useState, useEffect} from "react";
 import { useParams } from "react-router-dom";
 import { database } from "../firebase";
-import { useAuth } from "../contexts/AuthContext"
+import { Link } from 'react-router-dom'
 
-import Stories from "./Stories";
+import PublicStories from "./PublicStories";
 
 
 function UserStories() {
-    const { getProfileData } = useAuth()
-
     const [publicStories, setPublicStories] = useState([]);
-    const [userData, setUserData] = useState([])
 
     let params = useParams()
 
-    const handleProfileData = useCallback(async () => {
-        try {
-            const data = await getProfileData()
-            setUserData(data.data()) 
-        } catch {
-            console.log('error')
-        }
-    }, [getProfileData])
 
     useEffect(() => {
         const getPublicStories = async () => {
@@ -29,18 +18,23 @@ function UserStories() {
             setPublicStories(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
         }
 
-        handleProfileData()
         getPublicStories()
-    }, [params, handleProfileData])
+    }, [params])
 
     return (
         <>
-        <h1 className="d-flex justify-content-center m-5">{userData.firstName}'s Stories</h1>
+        {
+            publicStories.length === 0 && 
+            <div className='d-flex flex-column justify-content-center align-items-center' style={{height: '100vh'}}>
+                <h2>It looks this user doesn't have any stories or doesn't exist...</h2>
+                <Link to='/'>Go Home</Link>
+            </div>
+        }
             {
             publicStories.map((stories) => {
                 return (
                     <div key={stories.id} style={{padding: '1rem', borderBottom: '1px solid #ddd'}}>
-                        <Stories stories={stories} />
+                        <PublicStories stories={stories} />
                     </div>
                 )
             })

@@ -6,7 +6,7 @@ import Modal from 'react-bootstrap/Modal';
 import { Button } from "react-bootstrap";
 
 import SideBar from "./SideBar";
-import Stories from "./Stories";
+import PrivateStories from "./PrivateStories";
 
 import styles from "./styles/Dashboard.module.css"
 
@@ -63,7 +63,7 @@ function Dashboard() {
                     stories.map((stories) => {
                         return (
                             <div key={stories.id} style={{padding: '1rem', borderBottom: '1px solid #ddd'}}>                     
-                                <Stories stories={stories} />
+                                <PrivateStories stories={stories} />
                                 <Button onClick={() => handleDelete(stories.id)}>Delete</Button>
                             </div>
                         )

@@ -1,12 +1,11 @@
 import React from "react";
-import { Link } from 'react-router-dom'
 
-function Stories({ stories }) {
+function PrivateStories({ stories }) {
     return(
         <>
             <div className="d-flex flex-column">
                 <div>
-                    <strong><Link to={`/u/${stories.userID}`}>{stories.username}</Link> wrote,</strong>
+                    <strong>You wrote,</strong>
                 </div>
                 <h1>{stories.storyTitle}</h1>
                 <p>{stories.storyBody}</p>
@@ -15,4 +14,4 @@ function Stories({ stories }) {
     )
 }
 
-export default Stories
+export default PrivateStories

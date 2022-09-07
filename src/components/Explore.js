@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { database } from "../firebase";
 
-import Stories from "./Stories";
+import PublicStories from "./PublicStories";
 
 function Explore() {
     const [publicStories, setPublicStories] = useState([]);
@@ -20,8 +20,8 @@ function Explore() {
             {
             publicStories.map((stories) => {
                 return (
-                    <div key={stories.id} style={{padding: '1rem', borderBottom: '1px solid #ddd'}}>
-                        <Stories stories={stories} />
+                    <div className="d-flex" key={stories.id} >
+                        <PublicStories stories={stories} />
                     </div>
                 )
             })
