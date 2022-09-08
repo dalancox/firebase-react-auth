@@ -4,8 +4,6 @@ import { Link } from 'react-router-dom'
 
 
 function PublicStories({ stories }) {
-
-
     return (
         <>
         <Card>

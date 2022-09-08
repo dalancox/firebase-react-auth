@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { database } from "../firebase";
 
 import PublicStories from "./PublicStories";
+import Layout from "./Layout";
 
 function Explore() {
     const [publicStories, setPublicStories] = useState([]);
@@ -16,16 +17,19 @@ function Explore() {
 
     return (
         <>
-        <h2>Explore Page</h2>
-            {
-            publicStories.map((stories) => {
-                return (
-                    <div className="d-flex" key={stories.id} >
-                        <PublicStories stories={stories} />
-                    </div>
-                )
-            })
-            }   
+        <Layout>
+            <div className="d-flex flex-wrap" style={{gap: '1rem'}}>
+                {
+                    publicStories.map((stories) => {
+                        return (
+                            <div key={stories.id} style={{width: '300px'}}>
+                                <PublicStories stories={stories} />
+                            </div>
+                        )
+                    })
+                }
+            </div>
+        </Layout>   
         </>
     )
 }

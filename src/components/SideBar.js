@@ -36,22 +36,28 @@ function SideBar({ story }) {
 
     return (
         <div className={styles.sidebar}>
-            <Card style={{border: 'none'}}>
-                <Card.Body>
-                    <h2 className='text-center mb-4'>Profile</h2>
-                    <strong>Hello, {userData.firstName} {userData.lastName}</strong>
-                    <Link to="/update-profile" className="btn btn-primary w-100 mt-3">Update Profile</Link>
-                </Card.Body>
-            </Card>
-            <Card style={{border: 'none'}}>
-                <Card.Body>
-                    <h2 className='text-center mb-4'>Write your story</h2>       
-                    <strong>Current Stories:</strong> {story}
-                    <Link to="/add-story" className="btn btn-primary w-100 mt-3">Add Story!</Link>
-                </Card.Body>
-            </Card>
+            <div>
+                <Card style={{border: 'none'}}>
+                    <Card.Body>
+                        <h2 className='text-center mb-4'>Profile</h2>
+                        <strong>Hello, {userData.firstName} {userData.lastName}</strong>
+                        <Link to="/update-profile" className="btn btn-primary w-100 mt-3">Update Profile</Link>
+                    </Card.Body>
+                </Card>
+                <Card style={{border: 'none'}}>
+                    <Card.Body>
+                        <h2 className='text-center mb-4'>Write your story</h2>       
+                        <strong>Current Stories:</strong> {story}
+                        <Link to="/add-story" className="btn btn-primary w-100 mt-3">Add Story!</Link>
+                    </Card.Body>
+                </Card>
+            </div>
 
-            <div className='w-100 text-center mb-5' style={{position: 'absolute', bottom: '0'}}>
+            <div className='w-100 text-center'>
+                <Link to='/explore'><Button variant="dark">Explore</Button></Link>
+            </div>
+
+            <div className='w-100 text-center mb-5'>
                 {error && <Alert variant="danger">{error}</Alert>}
                 <Button variant="link" onClick={handleLogout}>Log Out</Button>
             </div>
