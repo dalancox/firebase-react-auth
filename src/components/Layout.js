@@ -19,6 +19,9 @@ function Layout({ children }) {
             <LinkContainer to="/add-story">
                 <Nav.Link>Add Story</Nav.Link>
             </LinkContainer>
+            <LinkContainer to="/explore">
+                <Nav.Link>Explore</Nav.Link>
+            </LinkContainer>
             </Nav>
             </Container>
         </Navbar>

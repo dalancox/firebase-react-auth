@@ -6,6 +6,7 @@ import UpdateProfile from './authentication/UpdateProfile';
 import Explore from './Explore';
 import AddStory from './AddStory';
 import UserStories from './UserStories';
+import SingleStory from './SingleStory';
 import PageNotFound from './PageNotFound';
 import { AuthProvider } from '../contexts/AuthContext';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
@@ -44,6 +45,12 @@ function App() {
                 <Route path="/u/:userId" element={
                   <PrivateRoute>
                     <UserStories />
+                  </PrivateRoute>
+                }
+                ></Route>
+                <Route path="/story/:storyId" element={
+                  <PrivateRoute>
+                    <SingleStory />
                   </PrivateRoute>
                 }
                 ></Route>

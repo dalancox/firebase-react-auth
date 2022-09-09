@@ -5,8 +5,6 @@ import { Link } from 'react-router-dom'
 
 function PublicStories({ stories }) {
 
-    const notTruncatedStory = stories
-
     if (stories.storyBody.length > 300) {
         stories.storyBody = stories.storyBody.slice(0, 150).concat('...')
     }
@@ -23,7 +21,7 @@ function PublicStories({ stories }) {
                 </Card.Text>
                     {
                         stories.storyBody.includes('...') &&
-                        <Link to='/'>See more</Link>
+                        <Link to={`/story/${stories.id}`}>See more</Link>
                     }
             </Card.Body>
         </Card>
