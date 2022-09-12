@@ -56,10 +56,6 @@ function Dashboard() {
             </Modal>
             <Spinner className={loading ? "d-block":"d-none"} animation="grow" />
                 {
-                    stories.length === 0 && 
-                    <h2>You have no stories...</h2>
-                }
-                {
                     stories.map((stories) => {
                         return (
                             <div key={stories.id} style={{padding: '1rem', borderBottom: '1px solid #ddd'}}>                     

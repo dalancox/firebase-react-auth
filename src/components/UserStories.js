@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from "react";
 import { useParams } from "react-router-dom";
 import { database } from "../firebase";
-import { Link } from 'react-router-dom'
 
 import PublicStories from "./PublicStories";
 import Layout from "./Layout";
@@ -25,13 +24,6 @@ function UserStories() {
     return (
         <>
         <Layout>
-            {
-            publicStories.length === 0 && 
-            <div className='d-flex flex-column justify-content-center align-items-center' style={{height: '100vh'}}>
-                <h2>It looks this user doesn't have any stories or doesn't exist...</h2>
-                <Link to='/'>Go Home</Link>
-            </div>
-            }
             {
             publicStories.map((stories) => {
                 return (

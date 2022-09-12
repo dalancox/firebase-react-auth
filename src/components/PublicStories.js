@@ -9,6 +9,8 @@ function PublicStories({ stories }) {
         stories.storyBody = stories.storyBody.slice(0, 150).concat('...')
     }
 
+    console.log(stories)
+
     return (
         <>
         <Card>

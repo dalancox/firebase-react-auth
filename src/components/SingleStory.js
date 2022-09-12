@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Card } from 'react-bootstrap'
 import { useParams } from "react-router-dom";
-import { Link } from 'react-router-dom'
 import { database } from "../firebase";
 import { getDoc } from "firebase/firestore"
 import Layout from "./Layout";
+import { Navigate } from "react-router-dom";
 
 
 function SingleStory() {
@@ -30,26 +30,20 @@ function SingleStory() {
     return (
         <>
         <Layout>
-        {
-            show && 
+            {
+                !show && 
+                <Navigate to="*" />
+            }
             <Card>
-            <Card.Body>
-                <Card.Title>
-                    <h3>{publicStories.username} wrote,</h3>
-                </Card.Title>
-                <Card.Text>
-                    {publicStories.storyBody}
-                </Card.Text>
-            </Card.Body>
-           </Card> 
-        }
-        {
-            !show && 
-            <div className='d-flex flex-column justify-content-center align-items-center' style={{height: '100vh'}}>
-                <h2>It looks this story doesn't exist or was deleted by the user...</h2>
-                <Link to='/'>Go Home</Link>
-            </div>
-        }
+                <Card.Body>
+                    <Card.Title>
+                        <h3>{publicStories.username}</h3>
+                    </Card.Title>
+                    <Card.Text>
+                        {publicStories.storyBody}
+                    </Card.Text>
+                </Card.Body>
+            </Card>   
         </Layout>
         </>
     )
