@@ -8,9 +8,6 @@ function PrivateStories({ stories }) {
             <h1>You have no stories!</h1>
         }
             <div className="d-flex flex-column">
-                <div>
-                    <strong>You wrote,</strong>
-                </div>
                 <h1>{stories.storyTitle}</h1>
                 <p>{stories.storyBody}</p>
             </div>

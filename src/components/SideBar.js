@@ -53,10 +53,6 @@ function SideBar({ story }) {
                 </Card>
             </div>
 
-            <div className='w-100 text-center'>
-                <Link to='/explore'><Button variant="dark">Explore</Button></Link>
-            </div>
-
             <div className='w-100 text-center mb-5'>
                 {error && <Alert variant="danger">{error}</Alert>}
                 <Button variant="link" onClick={handleLogout}>Log Out</Button>

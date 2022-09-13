@@ -37,7 +37,8 @@ function SingleStory() {
             <Card>
                 <Card.Body>
                     <Card.Title>
-                        <h3>{publicStories.username}</h3>
+                        <h5>{publicStories.username}</h5>
+                        <h2>{publicStories.storyTitle}</h2>
                     </Card.Title>
                     <Card.Text>
                         {publicStories.storyBody}

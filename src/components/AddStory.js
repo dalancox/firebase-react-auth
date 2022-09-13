@@ -6,6 +6,8 @@ import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import firebase from 'firebase/compat/app'
 
+import Layout from "./Layout";
+
 function AddStory() {
 
     const storyTitle = useRef()
@@ -49,7 +51,8 @@ function AddStory() {
     }, [])
 
     return(
-        <> 
+        <>
+        <Layout> 
         <div style={{display: 'flex', justifyContent: 'center', height: '100vh', alignItems: 'center'}}>
             <Card style={{width: '75%'}}>
                 <Card.Body>
@@ -76,6 +79,7 @@ function AddStory() {
                 </Card.Body>
             </Card>
         </div>
+        </Layout>
         </>
     )
 }

@@ -7,6 +7,7 @@ import { Button } from "react-bootstrap";
 
 import SideBar from "./SideBar";
 import PrivateStories from "./PrivateStories";
+import Layout from "./Layout";
 
 import styles from "./styles/Dashboard.module.css"
 
@@ -47,6 +48,7 @@ function Dashboard() {
 
     return (
         <>
+        <Layout>
         <div className={styles.wrapper}>
             <div className={styles.stories}>
             <Modal show={success} onHide={handleClose}>
@@ -67,7 +69,8 @@ function Dashboard() {
                 }
             </div>
             <SideBar story={stories.length} />
-        </div>      
+        </div>
+        </Layout>      
         </>
     )
 }

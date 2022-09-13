@@ -18,7 +18,7 @@ function Explore() {
     return (
         <>
         <Layout>
-            <div className="d-flex flex-wrap" style={{gap: '1rem'}}>
+            <div className="d-flex justify-content-center flex-wrap" style={{gap: '1rem'}}>
                 {
                     publicStories.map((stories) => {
                         return (

@@ -11,7 +11,6 @@ function UserStories() {
 
     let params = useParams()
 
-
     useEffect(() => {
         const getPublicStories = async () => {
             const data = await database.stories.where('userID', '==', params.userId).where('status', '==', 'Public').get()
