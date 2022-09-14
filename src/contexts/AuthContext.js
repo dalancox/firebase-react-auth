@@ -46,6 +46,10 @@ export function AuthProvider({ children }) {
         return database.stories.where('userID', '==', currentUser.uid).get()    
     }
 
+    function getPublicStories(docId) {
+        return database.stories.doc(docId)
+    }
+
     function deleteUserStories(docId) {
         return database.stories.doc(docId).delete()
     }
@@ -74,7 +78,8 @@ export function AuthProvider({ children }) {
         updatePassword,
         getUserStories,
         deleteUserStories,
-        getProfileData
+        getProfileData,
+        getPublicStories
     }
 
     return (
