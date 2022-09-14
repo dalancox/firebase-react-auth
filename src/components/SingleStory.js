@@ -27,27 +27,25 @@ function SingleStory() {
         getPublicStories()
     }, [params])
 
-    return (
-        <>
-        <Layout>
-            {
-                !show && 
-                <Navigate to="*" />
-            }
-            <Card>
-                <Card.Body>
-                    <Card.Title>
-                        <h5>{publicStories.username}</h5>
-                        <h2>{publicStories.storyTitle}</h2>
-                    </Card.Title>
-                    <Card.Text>
-                        {publicStories.storyBody}
-                    </Card.Text>
-                </Card.Body>
-            </Card>   
-        </Layout>
-        </>
-    )
+    if (show) {
+        return (
+            <Layout>
+                <Card>
+                    <Card.Body>
+                        <Card.Title>
+                            <h5>{publicStories.username}</h5>
+                            <h2>{publicStories.storyTitle}</h2>
+                        </Card.Title>
+                        <Card.Text>
+                            {publicStories.storyBody}
+                        </Card.Text>
+                    </Card.Body>
+                </Card>
+            </Layout>
+        )
+    } else {
+        return <Navigate to="*" />
+    }
 }
 
 export default SingleStory
