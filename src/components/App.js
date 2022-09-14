@@ -7,6 +7,7 @@ import Explore from './Explore';
 import AddStory from './AddStory';
 import UserStories from './UserStories';
 import SingleStory from './SingleStory';
+import UpdateStory from './UpdateStory';
 import PageNotFound from './PageNotFound';
 import { AuthProvider } from '../contexts/AuthContext';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
@@ -52,6 +53,12 @@ function App() {
                   <PrivateRoute>
                     <SingleStory />
                   </PrivateRoute>
+                }
+                ></Route>
+                <Route path="/story/edit/:storyId" element={
+                  <PrivateRoute>
+                    <UpdateStory />
+                </PrivateRoute>
                 }
                 ></Route>
                 <Route path="/signup" element={<Signup />} />

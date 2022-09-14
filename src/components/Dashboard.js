@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useAuth } from "../contexts/AuthContext"
+import { Link } from 'react-router-dom'
 
 import Spinner from 'react-bootstrap/Spinner';
 import Modal from 'react-bootstrap/Modal';
@@ -63,6 +64,7 @@ function Dashboard() {
                             <div key={stories.id} style={{padding: '1rem', borderBottom: '1px solid #ddd'}}>                     
                                 <PrivateStories stories={stories} />
                                 <Button onClick={() => handleDelete(stories.id)}>Delete</Button>
+                                <Link to={`story/edit/${stories.id}`}>Update</Link>
                             </div>
                         )
                     })
