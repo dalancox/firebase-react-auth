@@ -4,7 +4,7 @@ import { Card, Button, Alert, Form } from 'react-bootstrap'
 import { database } from "../../firebase";
 import { useAuth } from '../../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import firebase from 'firebase/compat/app'
+import { serverTimestamp } from "firebase/firestore";
 
 import Layout from "../Layout";
 
@@ -31,7 +31,7 @@ function AddStory() {
                 storyBody: storyBody.current.value,
                 status: status.current.value,
                 username: userData.firstName,
-                createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                createdAt: serverTimestamp()
             })
             navigate('/')
         }catch{
