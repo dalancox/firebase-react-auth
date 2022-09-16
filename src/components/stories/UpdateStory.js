@@ -1,15 +1,15 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from 'react-router-dom'
 import { useParams } from "react-router-dom";
-import { useAuth } from "../contexts/AuthContext"
+import { useAuth } from "../../contexts/AuthContext"
 
-import { database } from "../firebase";
+import { database } from "../../firebase";
 import { getDoc } from "firebase/firestore"
 
 import { Card, Button, Alert, Form } from 'react-bootstrap'
 
-import Layout from "./Layout";
-import PageNotFound from "./PageNotFound"
+import Layout from "../Layout";
+import PageNotFound from "../PageNotFound"
 
 function UpdateStory() {
 

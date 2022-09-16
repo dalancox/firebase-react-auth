@@ -7,7 +7,7 @@ import Modal from 'react-bootstrap/Modal';
 import { Button } from "react-bootstrap";
 
 import SideBar from "./SideBar";
-import PrivateStories from "./PrivateStories";
+import PrivateStories from "./stories/PrivateStories";
 import Layout from "./Layout";
 
 import styles from "./styles/Dashboard.module.css"
@@ -54,8 +54,11 @@ function Dashboard() {
             <div className={styles.stories}>
             <Modal show={success} onHide={handleClose}>
                 <Modal.Header closeButton>
-                <Modal.Title>Succesfully deleted story.</Modal.Title>
+                    <Modal.Title>Story Deleted</Modal.Title>
                 </Modal.Header>
+                <Modal.Body>
+                 <p>Your story has been successfully deleted</p>
+                </Modal.Body>
             </Modal>
             <Spinner className={loading ? "d-block":"d-none"} animation="grow" />
                 {
@@ -63,8 +66,8 @@ function Dashboard() {
                         return (
                             <div key={stories.id} style={{padding: '1rem', borderBottom: '1px solid #ddd'}}>                     
                                 <PrivateStories stories={stories} />
-                                <Button onClick={() => handleDelete(stories.id)}>Delete</Button>
-                                <Link to={`story/edit/${stories.id}`}>Update</Link>
+                                <Button className="me-2" onClick={() => handleDelete(stories.id)}>Delete</Button>
+                                <Link to={`story/edit/${stories.id}`}><Button>Update</Button></Link>
                             </div>
                         )
                     })

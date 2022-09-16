@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { database } from "../firebase";
 
-import PublicStories from "./PublicStories";
+import PublicStories from "./stories/PublicStories";
 import Layout from "./Layout";
 
 function Explore() {

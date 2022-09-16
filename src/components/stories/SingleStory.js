@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Card } from 'react-bootstrap'
 import { useParams } from "react-router-dom";
-import { database } from "../firebase";
+import { database } from "../../firebase";
 import { getDoc } from "firebase/firestore"
-import Layout from "./Layout";
+import Layout from "../Layout";
 import { Navigate } from "react-router-dom";
 
 

@@ -9,9 +9,9 @@ import Navbar from 'react-bootstrap/Navbar';
 function Layout({ children }) {
     return (
         <>
-        <Navbar bg="light" variant="light">
+        <Navbar className="sticky-top" bg="light" variant="light">
             <Container>
-            <Navbar.Brand href="#home">StoryBooks</Navbar.Brand>
+            <Navbar.Brand>StoryBooks</Navbar.Brand>
             <Nav className="me-auto">
             <LinkContainer to="/">
                 <Nav.Link>Dashboard</Nav.Link>

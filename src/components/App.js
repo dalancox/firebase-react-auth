@@ -4,10 +4,10 @@ import Login from './authentication/Login'
 import ForgotPassword from './authentication/ForgotPassword';
 import UpdateProfile from './authentication/UpdateProfile';
 import Explore from './Explore';
-import AddStory from './AddStory';
-import UserStories from './UserStories';
-import SingleStory from './SingleStory';
-import UpdateStory from './UpdateStory';
+import AddStory from './stories/AddStory';
+import UserStories from './stories/UserStories';
+import SingleStory from './stories/SingleStory';
+import UpdateStory from './stories/UpdateStory';
 import PageNotFound from './PageNotFound';
 import { AuthProvider } from '../contexts/AuthContext';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
