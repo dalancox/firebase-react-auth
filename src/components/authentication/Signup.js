@@ -34,7 +34,7 @@ function Signup() {
     }
 
     return (
-    <div>
+    <div className='d-flex vh-100 flex-column justify-content-center align-items-center'>
         <Card>
             <Card.Body>
                 <h2 className='text-center mb-4'>Sign up</h2>
