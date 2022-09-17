@@ -14,7 +14,8 @@ function PublicStories({ stories }) {
         <Card>
             <Card.Body>
                 <Card.Title>
-                    <h3><Link to={`/u/${stories.userID}`}>{stories.username}</Link> wrote,</h3>
+                    <h5><Link to={`/u/${stories.userID}`}>{stories.username}</Link> wrote,</h5>
+                    <h1>{stories.storyTitle}</h1>
                 </Card.Title>
                 <Card.Text>
                     {stories.storyBody}

@@ -9,7 +9,6 @@ import { getDoc } from "firebase/firestore"
 import { Card, Button, Alert, Form } from 'react-bootstrap'
 
 import Layout from "../Layout";
-import PageNotFound from "../PageNotFound"
 
 function UpdateStory() {
 
@@ -84,10 +83,7 @@ function UpdateStory() {
             </div>
             </Layout>
         )
-    } else {
-        return <PageNotFound />
-    }
-
+    } 
 }
 
 export default UpdateStory
