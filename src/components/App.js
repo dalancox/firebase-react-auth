@@ -6,7 +6,6 @@ import UpdateProfile from './authentication/UpdateProfile';
 import Explore from './Explore';
 import AddStory from './stories/AddStory';
 import UserStories from './stories/UserStories';
-import SingleStory from './stories/SingleStory';
 import UpdateStory from './stories/UpdateStory';
 import PageNotFound from './PageNotFound';
 import { AuthProvider } from '../contexts/AuthContext';
@@ -46,12 +45,6 @@ function App() {
                 <Route path="/u/:userId" element={
                   <PrivateRoute>
                     <UserStories />
-                  </PrivateRoute>
-                }
-                ></Route>
-                <Route path="/story/:storyId" element={
-                  <PrivateRoute>
-                    <SingleStory />
                   </PrivateRoute>
                 }
                 ></Route>
