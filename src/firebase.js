@@ -20,4 +20,5 @@ export const database = {
     stories: db.collection("stories"),
 }
 export const auth = app.auth()
+
 export default app
